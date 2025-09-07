@@ -18,6 +18,7 @@ Language support for ShellSpec BDD testing framework in Zed editor.
 ## File Types
 
 Automatically detects files with:
+
 - `*_spec.sh`
 - `*.spec.sh`
 
@@ -55,7 +56,7 @@ npm install -g bash-language-server
 
 ## Contributing
 
-Issues and PRs welcome at https://github.com/ivuorinen/zed-shellspec
+Issues and PRs welcome at <https://github.com/ivuorinen/shellspec-zed>
 
 ## License
 
