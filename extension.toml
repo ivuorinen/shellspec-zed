@@ -1,0 +1,15 @@
+id = "shellspec"
+name = "ShellSpec BDD Testing"
+version = "0.1.0"
+schema_version = 1
+authors = ["Ismo Vuorinen <ismo@vuorinen.net>"]
+description = "Language support for ShellSpec BDD testing framework"
+repository = "https://github.com/ivuorinen/shellspec-zed"
+
+[grammars.shellspec]
+repository = "https://github.com/tree-sitter/tree-sitter-bash"
+rev = "main"
+
+[language_servers.bash-language-server]
+name = "Bash Language Server"
+languages = ["ShellSpec"]

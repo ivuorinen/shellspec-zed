@@ -1,0 +1,29 @@
+name = "ShellSpec"
+grammar = "bash"
+path_suffixes = ["_spec.sh", ".spec.sh"]
+line_comments = ["# "]
+tab_size = 2
+hard_tabs = false
+first_line_pattern = "^#!/.*shellspec"
+
+[[brackets]]
+start = "'"
+end = "'"
+close = true
+newline = false
+not_in = ["string", "comment"]
+
+[[brackets]]
+start = "\""
+end = "\""
+close = true
+newline = false
+not_in = ["string", "comment"]
+
+[[brackets]]
+start = "$("
+end = ")"
+close = true
+newline = true
+
+block_comment = { start = ": '", end = "'" }
