@@ -1,47 +1,57 @@
-; BDD Structure Keywords
-["Describe" "Context" "ExampleGroup"] @keyword.function
-["It" "Specify" "Example"] @keyword.function
-["Todo"] @keyword.function
+; ShellSpec keywords are ordinary shell commands/arguments in the bash grammar,
+; not anonymous grammar tokens. They must be matched as (command_name) / (word)
+; nodes with predicates — a bare ["Describe"] list matches nothing.
+
+; Generic command name (overridden by the keyword rules below).
+(command_name) @function
+
+; BDD structure keywords (statement-leading command names)
+((command_name) @keyword.function
+  (#match? @keyword.function "^(Describe|Context|ExampleGroup|It|Specify|Example|Todo)$"))
 
 ; Prefixed block keywords
-["xDescribe" "xContext" "xExampleGroup" "xIt" "xSpecify" "xExample"] @keyword.function.inactive
-["fDescribe" "fContext" "fExampleGroup" "fIt" "fSpecify" "fExample"] @keyword.function.focus
+((command_name) @keyword.function.inactive
+  (#match? @keyword.function.inactive "^x(Describe|Context|ExampleGroup|It|Specify|Example)$"))
+((command_name) @keyword.function.focus
+  (#match? @keyword.function.focus "^f(Describe|Context|ExampleGroup|It|Specify|Example)$"))
 
-; Control flow
-["Pending" "Skip"] @keyword.control
-["When" "The" "Assert"] @keyword.control
-["End"] @keyword.control
+; Control flow keywords
+((command_name) @keyword.control
+  (#match? @keyword.control "^(Pending|Skip|When|The|Assert|End)$"))
 
 ; Hook keywords
-["BeforeEach" "AfterEach" "BeforeAll" "AfterAll"] @keyword.function
-["BeforeCall" "AfterCall" "BeforeRun" "AfterRun"] @keyword.function
-["Before" "After"] @keyword.function
+((command_name) @keyword.function
+  (#match? @keyword.function "^(BeforeEach|AfterEach|BeforeAll|AfterAll|BeforeCall|AfterCall|BeforeRun|AfterRun|Before|After)$"))
 
 ; Helper keywords
-["Include" "Set" "Data" "Parameters" "Dump"] @keyword
-["Path" "File" "Dir"] @keyword
+((command_name) @keyword
+  (#match? @keyword "^(Include|Set|Data|Parameters|Dump|Path|File|Dir)$"))
 
-; Evaluation keywords
-["call" "run" "command" "script" "source"] @function.method
+; Evaluation keywords (appear as arguments, e.g. `When call ...`)
+((word) @function.method
+  (#match? @function.method "^(call|run|command|script|source)$"))
 
 ; Assertion keywords
-["should" "not"] @keyword.operator
-["output" "stdout" "error" "stderr" "status" "variable" "path"] @variable.builtin
+((word) @keyword.operator
+  (#match? @keyword.operator "^(should|not)$"))
+((word) @variable.builtin
+  (#match? @variable.builtin "^(output|stdout|error|stderr|status|variable|path)$"))
 
 ; Matchers
-["equal" "eq" "be" "exist" "valid" "satisfy"] @function.method
-["match" "start_with" "end_with" "include" "contain"] @function.method
+((word) @function.method
+  (#match? @function.method "^(equal|eq|be|exist|valid|satisfy|match|start_with|end_with|include|contain)$"))
 
 ; Modifiers
-["line" "word" "length" "contents" "result"] @variable.parameter
-["first" "second" "third" "of"] @variable.parameter
+((word) @variable.parameter
+  (#match? @variable.parameter "^(line|word|length|contents|result|first|second|third|of)$"))
 
 ; Language chains
-["a" "an" "as" "the"] @keyword.operator
+((word) @keyword.operator
+  (#match? @keyword.operator "^(a|an|as|the)$"))
 
-; Skip conditional
-(word) @keyword.control
-  (#match? @keyword.control "^Skip\\s+if$")
+; Tags (key:value pairs)
+((word) @label
+  (#match? @label "^\\w+:\\w+$"))
 
 ; Test descriptions and strings
 (string) @string
@@ -60,14 +70,3 @@
 ; Function definitions
 (function_definition
   name: (word) @function)
-
-; Command names
-(command_name) @function
-
-; Data block markers
-(word) @punctuation.special
-  (#eq? @punctuation.special "#|")
-
-; Tags (key:value pairs)
-(word) @label
-  (#match? @label "\\w+:\\w+")

@@ -7,8 +7,9 @@ Language support for ShellSpec BDD testing framework in Zed editor.
 - Syntax highlighting for ShellSpec DSL keywords
 - Smart indentation for nested test blocks
 - Code outline navigation
-- Bracket matching and auto-completion
-- Test execution integration
+- Bracket matching and auto-close pairs
+- Test execution integration (runnable test/suite detection)
+- Shell completion and diagnostics via bash-language-server
 
 ## Installation
 

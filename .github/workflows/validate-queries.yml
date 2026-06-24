@@ -1,19 +1,21 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Sync Labels
+name: Validate Queries
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main]
     paths:
-      - '.github/labels.yml'
-      - '.github/workflows/sync-labels.yml'
-  schedule:
-    - cron: '34 5 * * *' # Run every day at 05:34 AM UTC
-  workflow_call:
-  workflow_dispatch:
+      - 'languages/**/*.scm'
+      - 'extension.toml'
+      - 'scripts/validate-queries.py'
+      - '.github/workflows/validate-queries.yml'
+  pull_request:
+    paths:
+      - 'languages/**/*.scm'
+      - 'extension.toml'
+      - 'scripts/validate-queries.py'
+      - '.github/workflows/validate-queries.yml'
   merge_group:
 
 concurrency:
@@ -23,20 +25,16 @@ concurrency:
 permissions: {}
 
 jobs:
-  labels:
-    name: ♻️ Sync Labels
+  validate-queries:
+    name: Validate tree-sitter queries
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     permissions:
       contents: read # check out the repository source
-      issues: write # create and update repository labels
-
     steps:
       - name: ⤵️ Checkout Repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
-      - name: ⤵️ Sync Latest Labels Definitions
-        uses: ivuorinen/actions/sync-labels@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
+      - name: ✅ Validate query node types against pinned grammar
+        run: python3 scripts/validate-queries.py

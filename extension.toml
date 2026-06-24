@@ -8,7 +8,7 @@ repository = "https://github.com/ivuorinen/shellspec-zed"
 
 [grammars.shellspec]
 repository = "https://github.com/tree-sitter/tree-sitter-bash"
-rev = "main"
+rev = "a06c2e4415e9bc0346c6b86d401879ffb44058f7"
 
 [language_servers.bash-language-server]
 name = "Bash Language Server"

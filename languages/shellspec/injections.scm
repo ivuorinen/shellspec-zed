@@ -11,7 +11,7 @@
   ")" @injection.punctuation.bracket)
 
 ; Inject shell in When blocks with call/run
-(simple_command
+(command
   (command_name) @_when
   (#eq? @_when "When")
   (word) @_action

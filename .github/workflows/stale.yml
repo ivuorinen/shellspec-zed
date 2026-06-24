@@ -8,10 +8,14 @@ on:
   workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  contents: read
-  packages: read
-  statuses: read
+  contents: read # check out the repository source
+  packages: read # pull action dependencies
+  statuses: read # read commit statuses when evaluating staleness
 
 jobs:
   stale:
@@ -20,7 +24,7 @@ jobs:
 
     permissions:
       contents: write # only for delete-branch option
-      issues: write
-      pull-requests: write
+      issues: write # comment on and close stale issues
+      pull-requests: write # comment on and close stale pull requests
     steps:
-      - uses: ivuorinen/actions/stale@f2d15a840e8888ba4f0c348ea70b6522cf2dc541 # v2026.04.15
+      - uses: ivuorinen/actions/stale@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
