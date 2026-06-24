@@ -1,32 +1,32 @@
 ; Test suites
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^(Describe|Context|ExampleGroup)$")
-  (word) @name) @item
+  [(word) (string) (raw_string)] @name) @item
 
 ; Individual tests
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^(It|Specify|Example)$")
-  (word) @name) @item
+  [(word) (string) (raw_string)] @name) @item
 
 ; Focused tests
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^f(Describe|Context|It|Specify|Example)$")
-  (word) @name) @item
+  [(word) (string) (raw_string)] @name) @item
 
 ; Skipped tests
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^x(Describe|Context|It|Specify|Example)$")
-  (word) @name) @item
+  [(word) (string) (raw_string)] @name) @item
 
 ; Hooks
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^(BeforeEach|AfterEach|BeforeAll|AfterAll)$")
-  (word) @name) @item
+  [(word) (string) (raw_string)] @name) @item
 
 ; Function definitions
 (function_definition

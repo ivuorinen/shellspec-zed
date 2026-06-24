@@ -1,5 +1,5 @@
 name = "ShellSpec"
-grammar = "bash"
+grammar = "shellspec"
 path_suffixes = ["_spec.sh", ".spec.sh"]
 line_comments = ["# "]
 tab_size = 2

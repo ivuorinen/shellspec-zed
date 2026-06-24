@@ -14,12 +14,3 @@
 
 ; Curly braces
 ("{" @open "}" @close)
-
-; ShellSpec block structure (if using End keyword)
-(simple_command
-  (command_name) @_cmd
-  (#match? @_cmd "^(Describe|Context|It|Specify|Example)$")) @open
-
-(simple_command
-  (command_name) @_end
-  (#eq? @_end "End")) @close

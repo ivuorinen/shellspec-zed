@@ -1,20 +1,20 @@
 ; Indent content inside BDD blocks
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^(Describe|Context|ExampleGroup|It|Specify|Example)$")) @indent
 
 ; Indent prefixed blocks
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^[xf](Describe|Context|ExampleGroup|It|Specify|Example)$")) @indent
 
 ; Indent hook content
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^(BeforeEach|AfterEach|BeforeAll|AfterAll|BeforeCall|AfterCall|BeforeRun|AfterRun)$")) @indent
 
 ; Indent Data blocks
-(simple_command
+(command
   (command_name) @_name
   (#match? @_name "^(Data|Parameters)$")) @indent
 
@@ -33,6 +33,6 @@
 (pipeline) @indent
 
 ; Dedent End keyword
-(simple_command
+(command
   (command_name) @_name
   (#eq? @_name "End")) @dedent
