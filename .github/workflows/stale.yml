@@ -4,7 +4,7 @@ name: Stale
 
 on:
   schedule:
-    - cron: '0 8 * * *' # Every day at 08:00
+    - cron: "0 8 * * *" # Every day at 08:00
   workflow_call:
   workflow_dispatch:
 
@@ -12,19 +12,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read # check out the repository source
-  packages: read # pull action dependencies
-  statuses: read # read commit statuses when evaluating staleness
+permissions: {}
 
 jobs:
   stale:
-    name: 🧹 Clean up stale issues and PRs
+    name: Clean up stale issues and PRs
     runs-on: ubuntu-latest
 
     permissions:
       contents: write # only for delete-branch option
       issues: write # comment on and close stale issues
+      packages: read # pull action dependencies
       pull-requests: write # comment on and close stale pull requests
+      statuses: read # read commit statuses when evaluating staleness
+
     steps:
-      - uses: ivuorinen/actions/stale@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
+      - uses: ivuorinen/actions/stale@94a4f68a6b95ecc1677fbcac1683119fd869adf7 # v2026.07.04
+        name: "Clean up"
